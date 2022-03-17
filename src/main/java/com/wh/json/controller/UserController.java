@@ -1,5 +1,6 @@
 package com.wh.json.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
@@ -28,7 +29,7 @@ public class UserController {
         //通过url获取请求(get请求)
         HttpGet httpGet = new HttpGet(url);
         //设定请求头
-
+        JSONObject jsonObject=null;
         String json = null;
         try {
             //通过请求对象获取相应对象
@@ -36,6 +37,8 @@ public class UserController {
             //判断网络状态码是否正常
             if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
                 json = EntityUtils.toString(response.getEntity(),"utf-8");
+                jsonObject = JSONObject.parseObject(json);
+                System.out.println(jsonObject);
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
